@@ -1,0 +1,45 @@
+SELECT 
+    CONCAT(c.fName, ' ', c.lName) AS fullname, 
+    m.title, 
+    SUM(r.requestedQty) AS total_quantity
+FROM 
+    tbl_rents_info r
+JOIN 
+    tbl_customer_info c ON r.tbl_customer_info_id = c.id
+JOIN 
+    tbl_movie_info m ON r.tbl_movie_info_id = m.id
+GROUP BY 
+    fullname, m.title;
+
+||Fullname||Movie Title||qty(Quantity)||
+___________________________________________________________
+SELECT 
+    CONCAT(c.fName, ' ', c.lName) AS fullname, 
+    m.title, 
+    MONTHNAME(r.requestedDate) AS month, 
+    YEAR(r.requestedDate) AS year, 
+    SUM(r.requestedQty) AS total_quantity
+FROM 
+    tbl_rents_info r
+JOIN 
+    tbl_customer_info c ON r.tbl_customer_info_id = c.id
+JOIN 
+    tbl_movie_info m ON r.tbl_movie_info_id = m.id
+GROUP BY 
+    fullname, m.title, month, year;
+
+||Fullname||Movie Title||Month||Year||qty(Quantity)||
+____________________________________________________________
+SELECT 
+    CONCAT(c.fName, ' ', c.lName) AS fullname, 
+    c.email, 
+    c.address, 
+    c.contactNo
+FROM 
+    tbl_customer_info c
+LEFT JOIN 
+    tbl_rents_info r ON c.id = r.tbl_customer_info_id
+WHERE 
+    r.tbl_customer_info_id IS NULL;
+
+||Fullname||Email||Address||Contact Number||

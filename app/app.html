@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<div id="demo">
+  <h1>Form</h1>
+  <label for="name">Name:</label>
+  <input type="text" id="name">
+  <label for="birthdate">Birthdate:</label>
+  <input type="date" id="birthdate">
+  <button type="button" onclick="displayInfo()">Display</button>
+</div>
+
+<script>
+function calculateAge(birthdate) {
+  var today = new Date();
+  var birthDate = new Date(birthdate);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
+}
+
+function displayInfo() {
+  var name = document.getElementById("name").value;
+  var birthdate = document.getElementById("birthdate").value;
+  var age = calculateAge(birthdate);
+  
+  if (name && birthdate) {
+    document.getElementById("demo").innerHTML = "Name: " + name + "<br>Age: " + age;
+  } else {
+    document.getElementById("demo").innerHTML = "Please enter both name and birthdate.";
+  }
+}
+</script>
+
+</body>
+</html>
